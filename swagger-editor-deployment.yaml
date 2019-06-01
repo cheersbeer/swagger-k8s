@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-editor
+  namespace: staging
+spec:
+  selector:
+    matchLabels:
+      app: swagger-editor
+  template:
+    metadata:
+      labels:
+        app: swagger-editor
+    spec:
+      hostNetwork: true
+      containers:
+      - name: swagger-editor
+        image: cheersbeer/swagger-editor-k8s:latest
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64M
+          requests:
+            cpu: 50m
+            memory: 16M
+        ports:
+          - containerPort: 8080

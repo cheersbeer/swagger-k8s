@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-ui
+  namespace: staging
+spec:
+  selector:
+    matchLabels:
+      app: swagger-ui
+  template:
+    metadata:
+      labels:
+        app: swagger-ui
+    spec:
+      containers:
+      - name: swagger-ui
+        image: cheersbeer/swagger-ui-k8s:latest
+        env:
+          - name: BASE_URL
+            value: /swagger-ui
+          - name: API_URLS
+            value: >-
+              [
+                {url:'/swagger-ui/openapi.yaml',name:'Local Example'}
+              ]
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64M
+          requests:
+            cpu: 50m
+            memory: 16M
+        ports:
+          - containerPort: 8080

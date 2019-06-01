@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: swagger-k8s
+  namespace: staging
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /
+          backend:
+            serviceName: swagger-api
+            servicePort: 80
+        - path: /swagger-ui
+          backend:
+            serviceName: swagger-ui
+            servicePort: 80
+        - path: /swagger-editor
+          backend:
+            serviceName: swagger-editor
+            servicePort: 80

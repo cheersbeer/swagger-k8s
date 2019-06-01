@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swagger-api
+  namespace: staging
+spec:
+  selector:
+    matchLabels:
+      app: swagger-api
+  template:
+    metadata:
+      labels:
+        app: swagger-api
+    spec:
+      hostNetwork: true
+      containers:
+      - name: swagger-api
+        image: cheersbeer/swagger-api-k8s:latest
+        args: ["/doc/openapi.yaml"]
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64M
+          requests:
+            cpu: 50m
+            memory: 16M
+        ports:
+          - containerPort: 8000
